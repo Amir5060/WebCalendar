@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "ThisWeek";
+}
+
+<h2>ThisWeek</h2>
+<div class="container">
+    <div class="row seven-cols" style="overflow-x: auto">
+        @for (int i = 0; i < 70; i++)
+        {
+            <div style="float: left;">@DateTime.Now.Date.AddDays(i).DayOfYear</div>
+            <div class="span6"></div>
+        }
+    </div>
+</div>
+

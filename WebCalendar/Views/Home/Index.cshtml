@@ -30,7 +30,7 @@
                 $('#btnPopupSave').click(function () {
                     // Sends to server. Calls a method in server.
                     console.log("Here:" + $.connection.hub.id);
-                    calendarMessaging.server.send($.connection.hub.id, $('#eventTitle').val(), moment($('#eventStart').val()), moment($('#eventEnd').val()));
+                    calendarMessaging.server.send($.connection.hub.id, $('#eventTitle').val(), moment(Date.parse($('#eventStart').val())), moment(Date.parse($('#eventEnd').val())));
                 });
 
             });

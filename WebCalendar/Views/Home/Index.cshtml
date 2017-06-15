@@ -32,7 +32,6 @@
                     console.log("Here:" + $.connection.hub.id);
                     calendarMessaging.server.send($.connection.hub.id, $('#eventTitle').val(), moment(Date.parse($('#eventStart').val())), moment(Date.parse($('#eventEnd').val())));
                 });
-
             });
 
             // Receive from server. Calls in the server.

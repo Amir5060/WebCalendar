@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,11 @@ namespace WebCalendar.Controllers
 {
     public class HomeController : Controller
     {
+        private IPlanService planService;
+        public HomeController(IPlanService planService)
+        {
+            this.planService = planService;
+        }
         //IPlansRepository _webRepo;
         //public HomeController(IPlansRepository webRepo)
         //{

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Services
 {
-    class PlanService: IPlanService
+    public class PlanService: IPlanService
     {
         private readonly IUnitOfWork _unitOfWork;
         public PlanService(IUnitOfWork unitOfWork)
@@ -19,6 +19,6 @@ namespace DataAccess.Services
         public async Task<int> AddNewPlan(string userId, string planTitle, string planDescription, DateTime startDate, DateTime endDate, string backgroundColor)
         {
             return await _unitOfWork.PlanRepository.AddNewPlan(userId, planTitle, planDescription, startDate, endDate, backgroundColor);
-        }
+        }        
     }
 }

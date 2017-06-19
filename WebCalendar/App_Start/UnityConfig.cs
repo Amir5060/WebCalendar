@@ -1,6 +1,12 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using WebCalendar.Test;
+using DataAccess.Services;
+using DataAccess.UnitOfWork;
+using DataAccess.Repositories;
+using DataAceess.Repositories;
+using DataAccess.Connection;
 
 namespace WebCalendar.App_Start
 {
@@ -37,6 +43,11 @@ namespace WebCalendar.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
+            //container.RegisterType<IUnityTest, UnityTest>();
+            container.RegisterType<IPlanService, PlanService>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IPlansRepository, PlansRepository>();
+            container.RegisterType<IConnectionFactory, ConnectionFactory>();
         }
     }
 }

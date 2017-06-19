@@ -22,15 +22,39 @@
 
             var calendarMessaging = $.connection.calendarHub;
             $.connection.hub.start().done(function () {
-                console.log("Here:" + $.connection.hub.id);
+                //console.log("Here:" + $.connection.hub.id);
                 var uuid = guid();
                 $('#userID').val(uuid);
                 // $.connection.hub.id => this is very important. Without it, SignalR sends to all inculding the same user! Duplicate message.
                 //calendarMessaging.server.newUser(uuid, $.connection.hub.id);
                 $('#btnPopupSave').click(function () {
                     // Sends to server. Calls a method in server.
-                    console.log("Here:" + $.connection.hub.id);
+                    //console.log("Here:" + $.connection.hub.id);
                     calendarMessaging.server.send($.connection.hub.id, $('#eventTitle').val(), moment(Date.parse($('#eventStart').val())), moment(Date.parse($('#eventEnd').val())));
+                    //console.log(moment(($('#eventStart').val())).utc().valueOf());
+                    var startDatePlan = moment(Date.parse($('#eventStart').val())).toDate();
+                    var dataRow = {
+                        'title': $('#eventTitle').val(),
+                        'description': '',
+                        'startDate': ($('#eventStart').val()),
+                        'endDate': ($('#eventEnd').val()),
+                        'backgroundColor': ''
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Home/SaveEvent",
+                        data: dataRow,
+                        success: function (response) {
+                            if (response == 'True') {
+                                $('#calendar').fullCalendar('refetchEvents');
+                                alert('New event saved!');
+                            }
+                            else {
+                                alert('Error, could not save event!');
+                            }
+                        }
+                    });
                 });
             });
 
@@ -43,7 +67,7 @@
                     end: endDate
                 };
                 $('#calendar').fullCalendar('renderEvent', eventData, true);
-                console.log(planId);
+                console.log("after render:" + planId);
             };
         });
 

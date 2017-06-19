@@ -1,9 +1,11 @@
 ﻿using DataAccess.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using WebCalendar.Models;
 //using WebCalendar.Models.Database_Connection;
 
@@ -21,7 +23,7 @@ namespace WebCalendar.Controllers
         //{
         //    //_webRepo = webRepo;
         //}
-        
+
         public ActionResult Index()
         {
             return View();
@@ -60,9 +62,14 @@ namespace WebCalendar.Controllers
         }
 
 
-        public bool SaveEvent(string Title, string NewEventDate, string NewEventTime, string NewEventDuration)
+        public bool SaveEvent(string title, string description, string startDate, string endDate, string backgroundColor)
         {
             //_webRepo.AddNewPlan()
+            DateTime sDate = DateTime.ParseExact(startDate, "ddd MMM dd yyyy HH:mm:ss GMTzzzzz", CultureInfo.InvariantCulture);
+            DateTime eDate = DateTime.ParseExact(endDate, "ddd MMM dd yyyy HH:mm:ss GMTzzzzz", CultureInfo.InvariantCulture);
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+
+            var v = planService.AddNewPlan("123"/*user.ProviderUserKey.ToString()*/, title, description, sDate, eDate, backgroundColor);
             return true;
             //return DiaryEvent.CreateNewEvent(Title, NewEventDate, NewEventTime, NewEventDuration);
         }

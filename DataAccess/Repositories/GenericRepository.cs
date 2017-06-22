@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DapperExtensions;
 
 namespace DataAccess.Repositories
 {
@@ -15,11 +16,11 @@ namespace DataAccess.Repositories
         {
             this.connectionFactory = connectionFactory;
         }
-        public void Add(TEntity entity)
+        public dynamic Add(TEntity entity)
         {
             //SqlMapper.Query()
             //var v = new SqlConnection
-            connectionFactory.GetConnection.//Query<TEntity>(("");
+            return connectionFactory.GetConnection.Insert(entity);//Query<TEntity>(("");
         }
 
         public void Delete(TEntity entity)

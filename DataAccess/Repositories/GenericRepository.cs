@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dapper;
+using DataAccess.Connection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +10,16 @@ namespace DataAccess.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
+        private IConnectionFactory connectionFactory;
+        public GenericRepository(IConnectionFactory connectionFactory)
+        {
+            this.connectionFactory = connectionFactory;
+        }
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            //SqlMapper.Query()
+            //var v = new SqlConnection
+            connectionFactory.GetConnection.//Query<TEntity>(("");
         }
 
         public void Delete(TEntity entity)

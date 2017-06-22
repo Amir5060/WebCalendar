@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,8 @@ namespace DataAccess.Connection
         {
             get
             {
+                IDbConnection v = new SqlConnection(connectionString);
+                // https://github.com/moraleslarios/MoralesLarios.Data
                 var factory = DbProviderFactories.GetFactory("System.Data.SqlClint");
                 var conn = factory.CreateConnection();
                 conn.ConnectionString = connectionString;

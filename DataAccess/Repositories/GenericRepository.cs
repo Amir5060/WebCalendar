@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DapperExtensions;
 
+
 namespace DataAccess.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
@@ -16,11 +17,9 @@ namespace DataAccess.Repositories
         {
             this.connectionFactory = connectionFactory;
         }
-        public dynamic Add(TEntity entity)
+        public async Task<dynamic> Add(TEntity entity)
         {
-            //SqlMapper.Query()
-            //var v = new SqlConnection
-            return connectionFactory.GetConnection.Insert(entity);//Query<TEntity>(("");
+            return await connectionFactory.GetConnection.InsertAsync<TEntity>(entity);
         }
 
         public void Delete(TEntity entity)
@@ -28,9 +27,9 @@ namespace DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(TEntity entity)
+        public async Task<dynamic> Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            return await connectionFactory.GetConnection.UpdateAsync(entity);
         }
 
         public TEntity Get(int Id)
@@ -40,7 +39,7 @@ namespace DataAccess.Repositories
 
         public IEnumerable<TEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return connectionFactory.GetConnection.Query<TEntity>("");            
         }
     }
 }

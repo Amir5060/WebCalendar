@@ -10,8 +10,8 @@ namespace DataAccess.Repositories
     {
         TEntity Get(int Id);
         IEnumerable<TEntity> GetAll();
-        dynamic Add(TEntity entity);
+        Task<dynamic> Add(TEntity entity);
         void Delete(TEntity entity);
-        void Update(TEntity entity);
+        Task<dynamic> Update(TEntity entity);
     }
 }

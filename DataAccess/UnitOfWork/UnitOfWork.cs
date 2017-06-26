@@ -1,6 +1,9 @@
-﻿using DataAccess.Repositories;
+﻿using DataAccess.Connection;
+using DataAccess.Entiteis;
+using DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,23 +12,27 @@ namespace DataAccess.UnitOfWork
 {
     public class UnitOfWork: IUnitOfWork
     {
-        private readonly IPlansRepository _planRepository;
-        public UnitOfWork(IPlansRepository planRepository)
+        private readonly GenericRepository<Plan> _planRepository;
+        private readonly IConnectionFactory connection;
+        private IDbTransaction transaction;
+
+        public UnitOfWork(GenericRepository<Plan> planRepository, IConnectionFactory connection)
         {
             _planRepository = planRepository;
+            this.connection = connection;
+            transaction = connection.GetConnection.BeginTransaction();
         }
 
-        public void Complete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IPlansRepository PlanRepository
-        {
+        public GenericRepository<Plan> UPlanRepository {
             get
             {
                 return _planRepository;
             }
+        }
+
+        public void Complete()
+        {
+            transaction.Commit();
         }
 
         #region IDisposable Support

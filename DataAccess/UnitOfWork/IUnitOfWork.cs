@@ -1,4 +1,5 @@
-﻿using DataAccess.Repositories;
+﻿using DataAccess.Entiteis;
+using DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace DataAccess.UnitOfWork
 {
     public interface IUnitOfWork: IDisposable
     {
-        IPlansRepository PlanRepository { get; } 
+        GenericRepository<Plan> UPlanRepository { get; }
         void Complete();
     }
 }
